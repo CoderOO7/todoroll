@@ -1,6 +1,6 @@
 # todoroll
 
-A chrome todo extension made in react to focus on dail goals and improve your productivity.
+A chrome todo extension made in react to focus on daily goals and improve your productivity.
 
 
 ## DEMO
