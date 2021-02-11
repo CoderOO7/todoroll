@@ -8,6 +8,7 @@
   --light-green: #c5c392;
   --salmon: #fa8072;
   --scarlet: #ff2400;
+  --light-blue: #3498db;
 }
 
 html {
@@ -23,15 +24,39 @@ body {
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
     url("https://images.unsplash.com/flagged/photo-1595524288414-a7fda0a12d0c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTl8fHN5bnRod2F2ZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60")
       center/cover no-repeat;
-  height: 100vh;
+  min-height: 100vh;
 }
 
-.app,
 .content {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   padding: 1rem;
+  min-height: 100vh;
 }
+
+/*--------------- Common Styling --------------*/
+.username_edit_form__input,
+.user_info__input--user_name,
+.task_create__form_input--task_title {
+  all: unset;
+  border-bottom: 2px solid white;
+}
+
+.user_info__input--user_name,
+.task_create__form_input--task_title {
+  padding: 0.4rem 0;
+}
+.task__item_action_btn ~ .task__item_action_btn,
+.task__edit_form_action_btn ~ .task__edit_form_action_btn {
+  margin-left: 1rem;
+}
+
+.error_display,
+.form_input_validation_error {
+  background: rgba(0, 0, 0, 0.4);
+}
+
 
 /************************************
  *         WELCOME SCREEN
@@ -42,6 +67,8 @@ body {
   justify-content: center;
   margin: 0 auto;
   height: 100vh;
+  width: 80%;
+  text-align: center;
 }
 
 .user_info > * {
@@ -63,8 +90,13 @@ body {
   align-self: flex-start;
 }
 
-.header {
+/*******************************
+ *        HOME SCREEN
+ *******************************/
+
+ .header {
   text-align: center;
+  margin-top: 1rem;
 }
 
 .header h1 {
@@ -74,13 +106,21 @@ body {
   align-items: center;
 }
 
-/*******************************
- *        HOME SCREEN
- *******************************/
+.header__current_time{
+  font-size: 6rem;
+  font-weight: 900;
+}
 
 /*----------- userName edit form styling ------------*/
 .header__username_edit_form {
   display: flex;
+}
+
+.header__user_greet{
+  display: flex;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: bold;
 }
 
 .username_edit_form__input {
@@ -106,10 +146,9 @@ body {
 }
 
 .form_input_validation_error {
+  color: red;
   padding: 0.4rem 0.2rem;
   font-size: 0.8rem;
-  color: red;
-  background: var(--salmon);
 }
 
 /*----------- todo task syling -------------*/
@@ -157,31 +196,42 @@ body {
   color: red;
 }
 
+.task__edit_form_input{
+  outline: none;
+  padding: 0.3rem;
+  border-radius: 4px;
+  border: 2px solid var(--light-blue)!important;
+}
+
 .task__edit_form_actions {
   padding-top: 1rem;
 }
 
+.task__edit_form_action_btn{
+  cursor:pointer;
+  padding: 0.3rem 0.8rem;
+  border-radius: 2px;
+
+}
+
+.task__edit_form_action_btn--save{
+    background: var(--light-blue);
+    border: 1px solid white;
+    color: white;
+}
+
+.task__edit_form_action_btn--cancel{
+    background: white;
+    border: 1px solid red;
+    color: red;
+}
+
 .error_display {
   margin: 0 auto 3rem;
+  padding: 0.6rem;
   text-align: center;
-  color: red;
-  background: black;
-}
-
-/*--------------- Common Styling --------------*/
-.username_edit_form__input .user_info__input--user_name,
-.task_create__form_input--task_title {
-  all: unset;
-  border-bottom: 2px solid white;
-}
-
-.user_info__input--user_name,
-.task_create__form_input--task_title {
-  padding: 0.4rem 0;
-}
-.task__item_action_btn ~ .task__item_action_btn,
-.task__edit_form_action_btn ~ .task__edit_form_action_btn {
-  margin-left: 1rem;
+  color: orange;
+  width: max-content
 }
 
 /*------------- Custom checkbox styling --------------- */
@@ -219,7 +269,7 @@ input[type="checkbox"]:checked:before {
 
 @media (orientation: portrait) {
   html {
-    font-size: 4vw;
+    font-size: 3.2vw;
   }
 
   .task__list {

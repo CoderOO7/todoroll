@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Header from "./Header";
 import Overview from "./Overview";
 import uniqid from "uniqid";
 import { appLocalStorage } from "../utility/storage/localStorage.js";
@@ -8,7 +9,6 @@ class HomeScreen extends Component {
     super(props);
 
     this.state = {
-      userName: this.props.userInfo.userName,
       task: {},
       taskTitle: "",
       tasks: appLocalStorage.getItem("tasks")
@@ -26,9 +26,7 @@ class HomeScreen extends Component {
     this.taskEdit = this.taskEdit.bind(this);
     this.taskDelete = this.taskDelete.bind(this);
     this.taskCompletionToggle = this.taskCompletionToggle.bind(this);
-    this.handleUserNameChange = this.handleUserNameChange.bind(this);
-    this.handleUserNameClick = this.handleUserNameClick.bind(this);
-    this.handleUserNameSubmit = this.handleUserNameSubmit.bind(this);
+
   }
 
   toggleScreen() {
@@ -114,59 +112,11 @@ class HomeScreen extends Component {
     }
   }
 
-  handleUserNameClick(event) {
-    this.setState((prevState) => ({ isUserNameEditFormVisible: true }));
-  }
-
-  handleUserNameChange(event) {
-    const { name, value } = event.target;
-    this.setState((prevState) => ({ [name]: value }));
-  }
-
-  handleUserNameSubmit(event) {
-    event.preventDefault();
-    const userName = this.state.userName;
-    if (userName !== "") {
-      this.setState((prevState) => ({
-        userName,
-        isUserNameEditFormVisible: false,
-      }));
-      this.props.setAndUpdateUserInfo(userName);
-    }
-  }
 
   render() {
-    const userNameFormTemplate = (
-      <form
-        onSubmit={this.handleUserNameSubmit}
-        className="header__username_edit_form"
-      >
-        <input
-          type="text"
-          name="userName"
-          className="username_edit_form__input username_edit_form__input--username"
-          onChange={this.handleUserNameChange}
-          value={this.state.userName}
-          size={this.state.userName.length ? this.state.userName.length : 1}
-        />
-      </form>
-    );
-
     return (
       <main className="content">
-        <header className="header">
-          <h1>
-            Hi &nbsp;
-            <span
-              onClick={this.handleUserNameClick}
-              className="header__username"
-            >
-              {this.state.isUserNameEditFormVisible
-                ? userNameFormTemplate
-                : this.state.userName}
-            </span>
-          </h1>
-        </header>
+        <Header userInfo={this.props.userInfo} setAndUpdateUserInfo={this.props.setAndUpdateUserInfo}/>
         <form className="task_create__form" onSubmit={this.handleSubmit}>
           <label htmlFor="taskTitle" className="task_create_form__label">
             <input
