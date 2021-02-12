@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import { getLocalTimeZoneByIP } from "../utility/dateTime.js";
+
 
 class WelcomeScreen extends Component {
   constructor() {
     super();
 
     this.state = {
+      ltz: "",
       userName: "",
       isValidationError: false,
       validationErrorMsg: "",
@@ -12,6 +15,18 @@ class WelcomeScreen extends Component {
 
     this.handleUserNameChange = this.handleUserNameChange.bind(this);
     this.handleNextBtnClick = this.handleNextBtnClick.bind(this);
+  }
+
+  componentDidMount() {
+    let self = this;
+
+    getLocalTimeZoneByIP()
+      .then((ltz) => {
+        self.setState((prevState) => ({ ltz }));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   handleUserNameChange(event) {
@@ -30,7 +45,7 @@ class WelcomeScreen extends Component {
       return;
     } else {
       this.props.toggleUserWelcomed();
-      this.props.setAndUpdateUserInfo(this.state.userName);
+      this.props.setAndUpdateUserInfo(this.state.userName,this.state.ltz);
     }
   }
 

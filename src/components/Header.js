@@ -1,13 +1,15 @@
-import React,{Component} from "react";
-import {format,getHours,getMinutes} from "date-fns";
+import React, { Component } from "react";
+import { format, utcToZonedTime } from "date-fns-tz";
+import {getLocalTimeZoneByIP} from "../utility/dateTime.js";
 
 class Header extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      date: new Date(),
+      ltz: this.props.userInfo.ltz,
+      date: utcToZonedTime(new Date(),this.props.userInfo.ltz),
       userName: this.props.userInfo.userName,
-      isUserNameEditFormVisible: false
+      isUserNameEditFormVisible: false,
     };
 
     this.handleUserNameChange = this.handleUserNameChange.bind(this);
@@ -15,13 +17,31 @@ class Header extends Component {
     this.handleUserNameSubmit = this.handleUserNameSubmit.bind(this);
   }
 
-  componentDidMount(){
-    this.timerId = setInterval(()=>{
-      this.setState((prevState)=>({date:new Date()}));
-    },1000);
+  componentDidMount() {
+
+    const self =  this;
+
+    getLocalTimeZoneByIP().then((ltz)=>{
+      self.setState((prevState)=>{
+        return{
+          ltz,
+          isLocalTimeZoneSet: true,
+          date: utcToZonedTime(new Date(), ltz),
+        };
+      });
+    }).catch(err=>{
+      console.error(err);
+    });
+
+    //update clock every minute
+    this.timerId = setInterval(function updateClock(){
+      self.setState((prevState) => ({
+        date: utcToZonedTime(new Date(), self.state.ltz),
+      }));
+    }, 60 * 1000);
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     clearInterval(this.timerId);
   }
 
@@ -46,23 +66,21 @@ class Header extends Component {
     }
   }
 
-  getGreetMsg(){
-      const hours = +getHours(this.state.date);
+  getGreetMsg() {
+    const hours = format(this.state.date,"HH");
 
-      let greetMsg = "";
-      if(hours < 12){
-          greetMsg = "Good Morning";
-      }else if(hours < 17){
-          greetMsg = "Good Afternoon";
-      }else{
-        greetMsg = "Good Evening";
-      }
-      return greetMsg;
+    let greetMsg = "";
+    if (hours < 12) {
+      greetMsg = "Good Morning";
+    } else if (hours < 17) {
+      greetMsg = "Good Afternoon";
+    } else {
+      greetMsg = "Good Evening";
+    }
+    return greetMsg;
   }
 
-
-  render(){
-
+  render() {
     const userNameFormTemplate = (
       <form
         onSubmit={this.handleUserNameSubmit}
@@ -79,17 +97,14 @@ class Header extends Component {
       </form>
     );
 
-    return(
+    return (
       <header className="header">
         <div className="header__current_time">
-          {format(this.state.date,"HH:mm")}
+          {format(this.state.date, "HH:mm")}
         </div>
         <div className="header__user_greet">
           <span>{this.getGreetMsg()},&nbsp;</span>
-          <span
-            onClick={this.handleUserNameClick}
-            className="header__username"
-          >
+          <span onClick={this.handleUserNameClick} className="header__username">
             {this.state.isUserNameEditFormVisible
               ? userNameFormTemplate
               : this.state.userName}
@@ -98,6 +113,6 @@ class Header extends Component {
       </header>
     );
   }
-};
+}
 
 export default Header;

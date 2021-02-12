@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import HomeScreen from "./HomeScreen";
 import WelcomeScreen from "./WelcomeScreen";
+import { appLocalStorage } from "../utility/storage/localStorage.js";
 import "../assets/styles/style.css";
 
 class App extends Component {
@@ -8,11 +9,11 @@ class App extends Component {
     super(props);
 
     this.state = {
-      userInfo: localStorage.getItem("userInfo")
-        ? JSON.parse(localStorage.getItem("userInfo"))
+      userInfo: appLocalStorage.getItem("userInfo")
+        ? appLocalStorage.getItem("userInfo")
         : {},
-      isUserWelcomed: localStorage.getItem("isUserWelcomed")
-        ? localStorage.getItem("isUserWelcomed")
+      isUserWelcomed: appLocalStorage.getItem("isUserWelcomed")
+        ? appLocalStorage.getItem("isUserWelcomed")
         : false,
     };
 
@@ -21,17 +22,19 @@ class App extends Component {
   }
 
   toggleUserWelcomed() {
-    localStorage.setItem("isUserWelcomed", !this.state.isUserWelcomed);
+    appLocalStorage.setItem("isUserWelcomed", !this.state.isUserWelcomed);
     this.setState((prevState) => ({
       isUserWelcomed: !prevState.isUserWelcomed,
     }));
   }
 
-  setAndUpdateUserInfo(userName) {
+  setAndUpdateUserInfo(userName,ltz) {
     const userInfo = Object.assign({}, this.state.userInfo, {
       userName: userName,
+      ltz: ltz,
     });
-    localStorage.setItem("userInfo", JSON.stringify(userInfo));
+    console.log(userInfo);
+    appLocalStorage.setItem("userInfo", userInfo);
     this.setState((prevState) => ({ userInfo }));
   }
 
@@ -46,6 +49,7 @@ class App extends Component {
         ) : (
           <HomeScreen
             userInfo={this.state.userInfo}
+            ltz={this.state.ltz}
             setAndUpdateUserInfo={this.setAndUpdateUserInfo}
           />
         )}
