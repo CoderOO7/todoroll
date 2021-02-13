@@ -17,7 +17,7 @@ class App extends Component {
         ? appLocalStorage.getItem("isUserWelcomed")
         : false,
 
-      backgroundImgPath: "../assets/images/default-bg.webp",
+      backgroundImgPath: "",
     };
 
     this.toggleUserWelcomed = this.toggleUserWelcomed.bind(this);
@@ -64,13 +64,18 @@ class App extends Component {
   };
 
   setBackgroundImage(){
-    const hours = format(utcToZonedTime(new Date(),this.state.userInfo.ltz),"HH");
-    if (hours < 12 && !this.state.backgroundImgPath.includes("good-morning")) {
-      this.loadImage("good-morning");
-    } else if (hours < 17 && !this.state.backgroundImgPath.includes("good-afternoon")) {
-      this.loadImage("good-afternoon");
-    } else if(!this.state.backgroundImgPath.includes("good-evening")){
-      this.loadImage("good-evening");
+
+    if(!this.state.isUserWelcomed){
+        this.loadImage("default-bg");
+    }else{
+      const hours = format(utcToZonedTime(new Date(),this.state.userInfo.ltz),"HH");
+      if (hours < 12 && !this.state.backgroundImgPath.includes("good-morning")) {
+        this.loadImage("good-morning");
+      } else if (hours < 17 && !this.state.backgroundImgPath.includes("good-afternoon")) {
+        this.loadImage("good-afternoon");
+      } else if(!this.state.backgroundImgPath.includes("good-evening")){
+        this.loadImage("good-evening");
+      }
     }
   }
 
