@@ -22,13 +22,15 @@ class Header extends Component {
     const self =  this;
 
     getLocalTimeZoneByIP().then((ltz)=>{
-      self.setState((prevState)=>{
-        return{
-          ltz,
-          isLocalTimeZoneSet: true,
-          date: utcToZonedTime(new Date(), ltz),
-        };
-      });
+      if(ltz !== this.state.ltz){
+        self.setState((prevState)=>{
+          return{
+            ltz,
+            date: utcToZonedTime(new Date(), ltz),
+          };
+        });
+        self.props.setAndUpdateUserInfo(self.props.userInfo.userName,ltz);
+      }
     }).catch(err=>{
       console.error(err);
     });
@@ -62,7 +64,7 @@ class Header extends Component {
         userName,
         isUserNameEditFormVisible: false,
       }));
-      this.props.setAndUpdateUserInfo(userName);
+      this.props.setAndUpdateUserInfo(userName,this.state.ltz);
     }
   }
 
@@ -71,11 +73,11 @@ class Header extends Component {
 
     let greetMsg = "";
     if (hours < 12) {
-      greetMsg = "Good Morning";
+      greetMsg = "Good morning";
     } else if (hours < 17) {
-      greetMsg = "Good Afternoon";
+      greetMsg = "Good afternoon";
     } else {
-      greetMsg = "Good Evening";
+      greetMsg = "Good evening";
     }
     return greetMsg;
   }
@@ -103,11 +105,15 @@ class Header extends Component {
           {format(this.state.date, "HH:mm")}
         </div>
         <div className="header__user_greet">
-          <span>{this.getGreetMsg()},&nbsp;</span>
-          <span onClick={this.handleUserNameClick} className="header__username">
-            {this.state.isUserNameEditFormVisible
-              ? userNameFormTemplate
-              : this.state.userName}
+          <span className="header__user_greet_wrapper">
+            <span>{this.getGreetMsg()},&nbsp;</span>
+            <span className="header__username">
+              <span onClick={this.handleUserNameClick} className="header__username_wrapper">
+                {this.state.isUserNameEditFormVisible
+                  ? userNameFormTemplate
+                  : this.state.userName}
+              </span>
+            </span>
           </span>
         </div>
       </header>

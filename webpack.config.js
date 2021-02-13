@@ -1,14 +1,20 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+
+const isDevelpment = process.env.NODE_ENV !== "production";
 
 module.exports = {
-  entry: "./src/index.js",
+  mode: isDevelpment ? "development" : "production",
+  entry: {
+    main: "./src/index.js",
+  },
   output: {
-    filename: "./main.js",
+    filename: isDevelpment ? "js/[name].[hash].js" : "js/[name].[hash].min.js",
     path: path.resolve(__dirname, "dist"),
   },
-  devtool: "source-map",
+  devtool: isDevelpment ? "inline-source-map": "source-map",
   devServer: {
     contentBase: "dist",
   },
@@ -19,6 +25,10 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
+        test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
+        type: "asset/resource",
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: ["babel-loader"],
@@ -26,6 +36,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ["**/*","!manifest.json","!assets"]
+    }),
     new HtmlWebpackPlugin({
       template: "./src/index.html"
     }),

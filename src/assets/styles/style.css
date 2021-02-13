@@ -21,9 +21,11 @@ body {
 }
 
 .app {
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
-    url("https://images.unsplash.com/flagged/photo-1595524288414-a7fda0a12d0c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTl8fHN5bnRod2F2ZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60")
-      center/cover no-repeat;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
+    url("../images/default-bg.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   min-height: 100vh;
 }
 
@@ -33,11 +35,14 @@ body {
   justify-content: center;
   padding: 1rem;
   min-height: 100vh;
+  width: 90vh;
+  margin: 0 auto;
 }
 
 /*--------------- Common Styling --------------*/
 .username_edit_form__input,
 .user_info__input--user_name,
+
 .task_create__form_input--task_title {
   all: unset;
   border-bottom: 2px solid white;
@@ -111,16 +116,29 @@ body {
   font-weight: 900;
 }
 
-/*----------- userName edit form styling ------------*/
-.header__username_edit_form {
-  display: flex;
-}
 
+
+/*----------- userName edit form styling ------------*/
 .header__user_greet{
-  display: flex;
-  justify-content: center;
   font-size: 1.6rem;
   font-weight: bold;
+}
+
+.header__user_greet_wrapper{
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+  white-space: nowrap
+}
+
+.header__username{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.header__username_edit_form {
+  display: flex;
 }
 
 .username_edit_form__input {
@@ -130,9 +148,6 @@ body {
 
 /*----------- task create form styling ------------*/
 .task_create__form {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
   padding: 3rem 0;
 }
 
@@ -141,8 +156,8 @@ body {
   flex-direction: column;
 }
 
-.task_create__form_input--task_title {
-  width: 80vh;
+.task_create__form_input--task_title{
+  text-align: center;
 }
 
 .form_input_validation_error {
@@ -152,10 +167,10 @@ body {
 }
 
 /*----------- todo task syling -------------*/
-.task__list {
-  width: 80vh;
+/* .task__list {
+  width: 90vh;
   margin: 0 auto;
-}
+} */
 
 .task__item {
   padding: 0.4rem 0;
@@ -165,15 +180,21 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
 .task__item_info {
   display: flex;
   align-items: center;
+  flex: 1;
+  overflow: hidden;
 }
 
 .task__item_checkbox:checked ~ .task__item_content {
   text-decoration: line-through;
 }
+
 .task__item_content {
+  text-overflow: ellipsis;
+  overflow: hidden;
   margin-left: 0.6rem;
 }
 
@@ -271,12 +292,15 @@ input[type="checkbox"]:checked:before {
   html {
     font-size: 3.2vw;
   }
+  .content{
+    width: 90vw;
+  }
 
-  .task__list {
+  /* .task__list {
     width: 90vw;
   }
 
   .task_create__form_input--task_title {
     width: 80vw;
-  }
+  } */
 }
