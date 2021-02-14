@@ -1,12 +1,12 @@
 {
-  "name": "chrome-todo-extension",
-  "version": "1.0.0",
-  "description": "Todo Extension for chrome browser",
+  "name": "todoroll",
+  "version": "0.0.1",
+  "description": "A todo extension made in react to focus on daily goals and improve your productivity.",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve ",
-    "build": "cross-env NODE_ENV=development webpack",
-    "build:prod": "cross-env NODE_ENV=production webpack"
+    "build": "cross-env NODE_ENV=development webpack && node ./scripts/buildPackage.js",
+    "build:prod": "cross-env NODE_ENV=production webpack && node ./scripts/buildPackage.js"
   },
   "author": "CoderOO7",
   "license": "ISC",
@@ -22,6 +22,7 @@
     "@babel/preset-react": "^7.12.13",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^7.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^5.0.1",
     "eslint": "^7.19.0",
