@@ -1,0 +1,306 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --light-green: #c5c392;
+  --salmon: #fa8072;
+  --scarlet: #ff2400;
+  --light-blue: #3498db;
+}
+
+html {
+  font-size: 3vh;
+}
+
+body {
+  color: white;
+  letter-spacing: 2px;
+}
+
+.app {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
+    url("../images/default-bg.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+  min-height: 100vh;
+  width: 90vh;
+  margin: 0 auto;
+}
+
+/*--------------- Common Styling --------------*/
+.username_edit_form__input,
+.user_info__input--user_name,
+
+.task_create__form_input--task_title {
+  all: unset;
+  border-bottom: 2px solid white;
+}
+
+.user_info__input--user_name,
+.task_create__form_input--task_title {
+  padding: 0.4rem 0;
+}
+.task__item_action_btn ~ .task__item_action_btn,
+.task__edit_form_action_btn ~ .task__edit_form_action_btn {
+  margin-left: 1rem;
+}
+
+.error_display,
+.form_input_validation_error {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+
+/************************************
+ *         WELCOME SCREEN
+ ************************************/
+.user_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  height: 100vh;
+  width: 80%;
+  text-align: center;
+}
+
+.user_info > * {
+  margin: 3rem 0;
+}
+
+.user_info__label {
+  display: flex;
+  flex-direction: column;
+}
+
+.user_info_btn {
+  background: var(--light-green);
+  outline: none;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+/*******************************
+ *        HOME SCREEN
+ *******************************/
+
+ .header {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.header h1 {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.header__current_time{
+  font-size: 6rem;
+  font-weight: 900;
+}
+
+
+
+/*----------- userName edit form styling ------------*/
+.header__user_greet{
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.header__user_greet_wrapper{
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+  white-space: nowrap
+}
+
+.header__username{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.header__username_edit_form {
+  display: flex;
+}
+
+.username_edit_form__input {
+  all: unset;
+  border-bottom: 2px solid white;
+}
+
+/*----------- task create form styling ------------*/
+.task_create__form {
+  padding: 3rem 0;
+}
+
+.task_create_form__label {
+  display: flex;
+  flex-direction: column;
+}
+
+.task_create__form_input--task_title{
+  text-align: center;
+}
+
+.form_input_validation_error {
+  color: red;
+  padding: 0.4rem 0.2rem;
+  font-size: 0.8rem;
+}
+
+/*----------- todo task syling -------------*/
+/* .task__list {
+  width: 90vh;
+  margin: 0 auto;
+} */
+
+.task__item {
+  padding: 0.4rem 0;
+}
+
+.task__item_view {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task__item_info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  overflow: hidden;
+}
+
+.task__item_checkbox:checked ~ .task__item_content {
+  text-decoration: line-through;
+}
+
+.task__item_content {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-left: 0.6rem;
+}
+
+.task__item_action_btn {
+  all: unset;
+  cursor: pointer;
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.task__item_action_btn {
+  opacity: 0.7;
+}
+
+.task__item_action_btn:hover {
+  opacity: 1;
+}
+
+.task__item_action_btn--delete:hover {
+  color: red;
+}
+
+.task__edit_form_input{
+  outline: none;
+  padding: 0.3rem;
+  border-radius: 4px;
+  border: 2px solid var(--light-blue)!important;
+}
+
+.task__edit_form_actions {
+  padding-top: 1rem;
+}
+
+.task__edit_form_action_btn{
+  cursor:pointer;
+  padding: 0.3rem 0.8rem;
+  border-radius: 2px;
+
+}
+
+.task__edit_form_action_btn--save{
+    background: var(--light-blue);
+    border: 1px solid white;
+    color: white;
+}
+
+.task__edit_form_action_btn--cancel{
+    background: white;
+    border: 1px solid red;
+    color: red;
+}
+
+.error_display {
+  margin: 0 auto 3rem;
+  padding: 0.6rem;
+  text-align: center;
+  color: orange;
+  width: max-content
+}
+
+/*------------- Custom checkbox styling --------------- */
+input[type="checkbox"] {
+  height: 1.2em;
+  width: 1.2em;
+  vertical-align: middle;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background: -webkit-linear-gradient(#fcfcfc, #dadada);
+  -webkit-appearance: none;
+  transition: box-shadow 400ms;
+}
+
+/* border radius for checkbox */
+input[type="checkbox"] {
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+
+input[type="checkbox"]:checked {
+  border-color: rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0px 1px 3px #fff, 0 1px 3px 4px rgba(245, 229, 27, 1);
+}
+
+input[type="checkbox"]:checked:before {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.7);
+  content: "\2713";
+  margin-left: 2px;
+  font-size: 0.9em;
+}
+
+@media (orientation: portrait) {
+  html {
+    font-size: 3.2vw;
+  }
+  .content{
+    width: 90vw;
+  }
+
+  /* .task__list {
+    width: 90vw;
+  }
+
+  .task_create__form_input--task_title {
+    width: 80vw;
+  } */
+}
