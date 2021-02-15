@@ -3,14 +3,20 @@
   "version": "0.0.1",
   "description": "A todo extension made in react to focus on daily goals and improve your productivity.",
   "main": "index.js",
+  "private": true,
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack serve ",
-    "build": "cross-env NODE_ENV=development webpack && node ./scripts/buildPackage.js",
-    "build:prod": "cross-env NODE_ENV=production webpack && node ./scripts/buildPackage.js"
+    "start": "cross-env NODE_ENV=development webpack serve",
+    "build": "cross-env NODE_ENV=production webpack && node ./scripts/buildPackage.js",
+    "build:dev": "cross-env NODE_ENV=development webpack",
+    "launch": "web-ext run --source-dir ./dist/"
+  },
+  "engines": {
+    "node": "^12"
   },
   "author": "CoderOO7",
   "license": "ISC",
   "dependencies": {
+    "date-fns": "^2.17.0",
     "date-fns-tz": "^1.1.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

@@ -1,7 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
 const isDevelopment = process.env.NODE_ENV !== "production";
@@ -12,10 +12,12 @@ module.exports = {
     main: "./src/index.js",
   },
   output: {
-    filename: isDevelopment ? "js/[name].[chunkhash].js" : "js/[name].[chunkhash].min.js",
+    filename: isDevelopment
+      ? "js/[name].[chunkhash].js"
+      : "js/[name].[chunkhash].min.js",
     path: path.resolve(__dirname, "dist"),
   },
-  devtool: isDevelopment ? "inline-source-map": "source-map",
+  devtool: isDevelopment ? "inline-source-map" : "source-map",
   devServer: {
     contentBase: "dist",
   },
@@ -37,18 +39,19 @@ module.exports = {
     ],
   },
   plugins: [
-    !isDevelopment ? new CleanWebpackPlugin({
-      cleanStaleWebpackAssets: false,
-      cleanOnceBeforeBuildPatterns: ["**/*","!manifest.json"]
-    }) : false,
+    !isDevelopment
+      ? new CleanWebpackPlugin({
+          cleanStaleWebpackAssets: false,
+        })
+      : false,
     new CopyPlugin({
       patterns: [
-        {from:"src/assets", to: "assets"},
-        {from:"src/manifest.json", to: "manifest.json"}
-      ]
+        { from: "src/assets", to: "assets" },
+        { from: "src/manifest.json", to: "manifest.json" },
+      ],
     }),
     new HtmlWebpackPlugin({
-      template: "./src/index.html"
+      template: "./src/index.html",
     }),
     new webpack.ProvidePlugin({
       process: "process/browser",
