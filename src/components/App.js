@@ -3,7 +3,6 @@ import { format, utcToZonedTime } from "date-fns-tz";
 import { appLocalStorage } from "../utility/storage/localStorage.js";
 import HomeScreen from "./HomeScreen";
 import WelcomeScreen from "./WelcomeScreen";
-import "../assets/styles/style.css";
 
 class App extends Component {
   constructor(props) {
@@ -22,17 +21,17 @@ class App extends Component {
 
     this.toggleUserWelcomed = this.toggleUserWelcomed.bind(this);
     this.setAndUpdateUserInfo = this.setAndUpdateUserInfo.bind(this);
-    this.setBackgroundImage = this.setBackgroundImage.bind(this);
+    this._setBackgroundImage = this._setBackgroundImage.bind(this);
   }
 
   componentDidMount() {
     //Initially set background image on app laod
-    this.setBackgroundImage();
+    this._setBackgroundImage();
 
     //Update background Image
     this.timerId = setInterval(() => {
-      this.setBackgroundImage();
-    }, 60*1000);
+      this._setBackgroundImage();
+    }, 1000);
   }
 
   componentWillUnmount() {
@@ -55,32 +54,41 @@ class App extends Component {
     this.setState((prevState) => ({ userInfo }));
   }
 
-  loadImage(imageName) {
-    import(`../assets/images/${imageName}.webp`)
-      .then((image) => {
-        this.setState((prevState) => ({ backgroundImgPath: image.default }));
-      })
-      .catch((err) => console.error(err));
-  };
+  _loadImage(imageName) {
+    const backgroundImgPath = `../assets/images/${imageName}.webp`;
+    this.setState((prevState) => ({ backgroundImgPath }));
+  }
 
-  setBackgroundImage(){
-
-    if(!this.state.isUserWelcomed){
-        this.loadImage("default-bg");
-    }else{
-      const hours = format(utcToZonedTime(new Date(),this.state.userInfo.ltz),"HH");
-      if (hours < 12 && !this.state.backgroundImgPath.includes("good-morning")) {
-        this.loadImage("good-morning");
-      } else if (hours < 17 && !this.state.backgroundImgPath.includes("good-afternoon")) {
-        this.loadImage("good-afternoon");
-      } else if(!this.state.backgroundImgPath.includes("good-evening")){
-        this.loadImage("good-evening");
+  _setBackgroundImage() {
+    if (!this.state.isUserWelcomed) {
+      this._loadImage("default-bg");
+    } else {
+      const hours = format(
+        utcToZonedTime(new Date(), this.state.userInfo.ltz),
+        "HH"
+      );
+      if (
+        hours < 12 &&
+        !this.state.backgroundImgPath.includes("good-morning")
+      ) {
+        this._loadImage("good-morning");
+      } else if (
+        hours >= 12 &&
+        hours < 17 &&
+        !this.state.backgroundImgPath.includes("good-afternoon")
+      ) {
+        this._loadImage("good-afternoon");
+      } else if (
+        hours >= 17 &&
+        hours <= 24 &&
+        !this.state.backgroundImgPath.includes("good-evening")
+      ) {
+        this._loadImage("good-evening");
       }
     }
   }
 
   render() {
-
     const styles = {
       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url(${this.state.backgroundImgPath})`,
     };
@@ -96,7 +104,6 @@ class App extends Component {
           <HomeScreen
             userInfo={this.state.userInfo}
             ltz={this.state.ltz}
-            loadBackgroundImage={this.loadBackgroundImage}
             setAndUpdateUserInfo={this.setAndUpdateUserInfo}
           />
         )}

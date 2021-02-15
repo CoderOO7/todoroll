@@ -26,7 +26,6 @@ class HomeScreen extends Component {
     this.taskEdit = this.taskEdit.bind(this);
     this.taskDelete = this.taskDelete.bind(this);
     this.taskCompletionToggle = this.taskCompletionToggle.bind(this);
-
   }
 
   toggleScreen() {
@@ -112,11 +111,13 @@ class HomeScreen extends Component {
     }
   }
 
-
   render() {
     return (
       <main className="content">
-        <Header userInfo={this.props.userInfo} loadBackgroundImage={this.props.loadBackgroundImage} setAndUpdateUserInfo={this.props.setAndUpdateUserInfo}/>
+        <Header
+          userInfo={this.props.userInfo}
+          setAndUpdateUserInfo={this.props.setAndUpdateUserInfo}
+        />
         <form className="task_create__form" onSubmit={this.handleSubmit}>
           <label htmlFor="taskTitle" className="task_create_form__label">
             <input

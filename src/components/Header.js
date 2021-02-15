@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { format, utcToZonedTime } from "date-fns-tz";
-import {getLocalTimeZoneByIP} from "../utility/dateTime.js";
+import { getLocalTimeZoneByIP } from "../utility/dateTime.js";
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
       ltz: this.props.userInfo.ltz,
-      date: utcToZonedTime(new Date(),this.props.userInfo.ltz),
+      date: utcToZonedTime(new Date(), this.props.userInfo.ltz),
       userName: this.props.userInfo.userName,
       isUserNameEditFormVisible: false,
     };
@@ -18,29 +18,30 @@ class Header extends Component {
   }
 
   componentDidMount() {
+    const self = this;
 
-    const self =  this;
-
-    getLocalTimeZoneByIP().then((ltz)=>{
-      if(ltz !== this.state.ltz){
-        self.setState((prevState)=>{
-          return{
-            ltz,
-            date: utcToZonedTime(new Date(), ltz),
-          };
-        });
-        self.props.setAndUpdateUserInfo(self.props.userInfo.userName,ltz);
-      }
-    }).catch(err=>{
-      console.error(err);
-    });
+    getLocalTimeZoneByIP()
+      .then((ltz) => {
+        if (ltz !== this.state.ltz) {
+          self.setState((prevState) => {
+            return {
+              ltz,
+              date: utcToZonedTime(new Date(), ltz),
+            };
+          });
+          self.props.setAndUpdateUserInfo(self.props.userInfo.userName, ltz);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
 
     //update clock every minute
-    this.timerId = setInterval(function updateClock(){
+    this.timerId = setInterval(function updateClock() {
       self.setState((prevState) => ({
         date: utcToZonedTime(new Date(), self.state.ltz),
       }));
-    }, 60 * 1000);
+    }, 1000);
   }
 
   componentWillUnmount() {
@@ -64,12 +65,12 @@ class Header extends Component {
         userName,
         isUserNameEditFormVisible: false,
       }));
-      this.props.setAndUpdateUserInfo(userName,this.state.ltz);
+      this.props.setAndUpdateUserInfo(userName, this.state.ltz);
     }
   }
 
   getGreetMsg() {
-    const hours = format(this.state.date,"HH");
+    const hours = format(this.state.date, "HH");
 
     let greetMsg = "";
     if (hours < 12) {
@@ -108,7 +109,10 @@ class Header extends Component {
           <span className="header__user_greet_wrapper">
             <span>{this.getGreetMsg()},&nbsp;</span>
             <span className="header__username">
-              <span onClick={this.handleUserNameClick} className="header__username_wrapper">
+              <span
+                onClick={this.handleUserNameClick}
+                className="header__username_wrapper"
+              >
                 {this.state.isUserNameEditFormVisible
                   ? userNameFormTemplate
                   : this.state.userName}
