@@ -6,8 +6,9 @@
   "private": true,
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve",
-    "build": "cross-env NODE_ENV=production webpack && node ./scripts/buildPackage.js",
-    "build:dev": "cross-env NODE_ENV=development webpack",
+    "build:firefox": "cross-env NODE_ENV=production webpack && node ./scripts/buildPackage.js",
+    "build:web": "cross-env NODE_ENV=production webpack",
+    "build:chromium": "cross-env NODE_ENV=production webpack",
     "launch": "web-ext run --source-dir ./dist/"
   },
   "engines": {
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.13",
+    "@babel/eslint-parser": "^7.13.10",
     "@babel/preset-env": "^7.12.13",
     "@babel/preset-react": "^7.12.13",
     "babel-loader": "^8.2.2",
@@ -52,5 +54,6 @@
   "lint-staged": {
     "*.js": "eslint --cache --fix",
     "*.{js,css,md}": "prettier --write"
-  }
+  },
+  "browserslist": "last 2 Chrome versions, last 2 Firefox versions, last 2 safari versions"
 }

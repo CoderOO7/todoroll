@@ -5,6 +5,7 @@
     "node": true
   },
   "extends": ["eslint:recommended", "plugin:react/recommended","prettier","prettier/react"],
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -15,8 +16,8 @@
   "plugins": ["react"],
   "rules": {
     "semi": ["warn", "always"],
-    "quotes": ["warn", "double"],
-    "no-unused-vars": ["warn", {"vars": "all", "args": "after-used"}],
+    "quotes": ["warn", "single"],
+    "no-unused-vars": ["off", {"vars": "all", "args": "after-used"}],
     "react/jsx-uses-react": "warn",
     "react/jsx-uses-vars": "warn",
     "react/prop-types": "off"
