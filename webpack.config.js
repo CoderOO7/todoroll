@@ -1,3 +1,4 @@
+const Dotenv = require('dotenv-webpack');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -45,9 +46,12 @@ module.exports = {
     ]
   },
   plugins: [
+    new Dotenv(),
+    !isDevelopment ? new CleanWebpackPlugin({}) : false,
     !isDevelopment
-      ? new CleanWebpackPlugin({
-          cleanStaleWebpackAssets: false
+      ? new webpack.LoaderOptionsPlugin({
+          minimize: true,
+          debug: false
         })
       : false,
     new CopyPlugin({

@@ -22,11 +22,11 @@ body {
 
 .app {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
-    url("../images/default-bg.webp");
+    url('https://res.cloudinary.com/dddrcogja/image/upload/v1616252103/todoroll/default-bg.webp');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .content {
@@ -34,7 +34,7 @@ body {
   flex-direction: column;
   justify-content: center;
   padding: 1rem;
-  min-height: 100vh;
+  height: 100vh;
   width: 90vh;
   margin: 0 auto;
 }
@@ -42,7 +42,6 @@ body {
 /*--------------- Common Styling --------------*/
 .username_edit_form__input,
 .user_info__input--user_name,
-
 .task_create__form_input--task_title {
   all: unset;
   border-bottom: 2px solid white;
@@ -61,7 +60,6 @@ body {
 .form_input_validation_error {
   background: rgba(0, 0, 0, 0.4);
 }
-
 
 /************************************
  *         WELCOME SCREEN
@@ -99,7 +97,7 @@ body {
  *        HOME SCREEN
  *******************************/
 
- .header {
+.header {
   text-align: center;
   margin-top: 1rem;
 }
@@ -111,27 +109,25 @@ body {
   align-items: center;
 }
 
-.header__current_time{
+.header__current_time {
   font-size: 6rem;
   font-weight: 900;
 }
 
-
-
 /*----------- userName edit form styling ------------*/
-.header__user_greet{
+.header__user_greet {
   font-size: 1.6rem;
   font-weight: bold;
 }
 
-.header__user_greet_wrapper{
+.header__user_greet_wrapper {
   display: inline-flex;
   justify-content: center;
   width: 100%;
-  white-space: nowrap
+  white-space: nowrap;
 }
 
-.header__username{
+.header__username {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -156,7 +152,7 @@ body {
   flex-direction: column;
 }
 
-.task_create__form_input--task_title{
+.task_create__form_input--task_title {
   text-align: center;
 }
 
@@ -167,10 +163,14 @@ body {
 }
 
 /*----------- todo task syling -------------*/
-/* .task__list {
-  width: 90vh;
-  margin: 0 auto;
-} */
+.task__list {
+  padding: 0 0.4rem;
+  overflow: hidden;
+}
+
+.task__list:hover {
+  overflow-y: auto;
+}
 
 .task__item {
   padding: 0.4rem 0;
@@ -217,46 +217,45 @@ body {
   color: red;
 }
 
-.task__edit_form_input{
+.task__edit_form_input {
   outline: none;
   padding: 0.3rem;
   border-radius: 4px;
-  border: 2px solid var(--light-blue)!important;
+  border: 2px solid var(--light-blue) !important;
 }
 
 .task__edit_form_actions {
   padding-top: 1rem;
 }
 
-.task__edit_form_action_btn{
-  cursor:pointer;
+.task__edit_form_action_btn {
+  cursor: pointer;
   padding: 0.3rem 0.8rem;
   border-radius: 2px;
-
 }
 
-.task__edit_form_action_btn--save{
-    background: var(--light-blue);
-    border: 1px solid white;
-    color: white;
+.task__edit_form_action_btn--save {
+  background: var(--light-blue);
+  border: 1px solid white;
+  color: white;
 }
 
-.task__edit_form_action_btn--cancel{
-    background: white;
-    border: 1px solid red;
-    color: red;
+.task__edit_form_action_btn--cancel {
+  background: white;
+  border: 1px solid red;
+  color: red;
 }
 
 .error_display {
   margin: 0 auto 3rem;
-  padding: 0.6rem;
+  padding: 0.4rem;
   text-align: center;
   color: orange;
-  width: max-content
+  width: max-content;
 }
 
 /*------------- Custom checkbox styling --------------- */
-input[type="checkbox"] {
+input[type='checkbox'] {
   height: 1.2em;
   width: 1.2em;
   vertical-align: middle;
@@ -267,23 +266,23 @@ input[type="checkbox"] {
 }
 
 /* border radius for checkbox */
-input[type="checkbox"] {
+input[type='checkbox'] {
   -webkit-border-radius: 2px;
   border-radius: 2px;
 }
 
-input[type="checkbox"]:checked {
+input[type='checkbox']:checked {
   border-color: rgba(0, 0, 0, 0.5);
   box-shadow: inset 0px 1px 3px #fff, 0 1px 3px 4px rgba(245, 229, 27, 1);
 }
 
-input[type="checkbox"]:checked:before {
+input[type='checkbox']:checked:before {
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.7);
-  content: "\2713";
+  content: '\2713';
   margin-left: 2px;
   font-size: 0.9em;
 }
@@ -292,7 +291,7 @@ input[type="checkbox"]:checked:before {
   html {
     font-size: 3.2vw;
   }
-  .content{
+  .content {
     width: 90vw;
   }
 
