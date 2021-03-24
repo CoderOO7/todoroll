@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve",
+    "build": "npm run build:web",
     "build:firefox": "cross-env NODE_ENV=production webpack && node ./scripts/buildPackage.js",
     "build:web": "cross-env NODE_ENV=production webpack",
     "build:chromium": "cross-env NODE_ENV=production webpack",

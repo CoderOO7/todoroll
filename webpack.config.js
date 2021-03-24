@@ -46,7 +46,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new Dotenv(),
+    new Dotenv({ systemvars: true }),
     !isDevelopment ? new CleanWebpackPlugin({}) : false,
     !isDevelopment
       ? new webpack.LoaderOptionsPlugin({
