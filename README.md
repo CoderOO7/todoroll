@@ -1,15 +1,23 @@
 # todoroll
 
-A todo extension made in react to focus on daily goals and improve your productivity.
+A todo extension made to focus on daily goals and improve your productivity.
 
 ## Demo
 
-Coming soon.....
+https://todoroll.netlify.app/
 
 ## Tech Stack
 
 - Frontend: React
 - Tools: Node.js, web-ext, firefox browser
+- API: Unsplash for background image.
+
+## Features
+- Display Clock
+- Greeting user according to the day time.
+- It's a CRUD app allow user to creat,update and delete tasks.
+- User restriced to maximum 5 task creation.  
+- Auto background image update in every 10 minutes.
 
 ## Requirement
 
@@ -35,7 +43,7 @@ npm install
 npm start
 
 # Create build
-npm run build
+npm run build:firefox
 
 # Test/Install browser extension in firefox
 npm run launch
