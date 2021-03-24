@@ -14,7 +14,7 @@ https://todoroll.netlify.app/
 
 ## Features
 - Display Clock
-- Greeting user according to the day time.
+- Greet user according to the day time.
 - It's a CRUD app allow user to creat,update and delete tasks.
 - User restriced to maximum 5 task creation.  
 - Auto background image update in every 10 minutes.
